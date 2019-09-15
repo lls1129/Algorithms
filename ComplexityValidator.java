@@ -3,21 +3,14 @@
 import java.io.*;
 import java.util.*;
 import java.math.*;
-
+//To calculate math expression given by String: 
+//https://github.com/fasseg/exp4j/tree/master/src/main/java/net/objecthunter/exp4j
 import net.objecthunter.exp4j.*;
 
 
 
 
 public class ComplexityValidator {
-	
-	/**
-	 * Validates the time complexity with given expression.
-	 */
-    
-    //public String TCConfirmableAlgorithm(Callable<String> algorithm) {
-    //    return algorithm.call();
-    //}
     
     //For convience, define a function to copy array. 
     public static double[] copy(double[] a) {
@@ -51,7 +44,7 @@ public class ComplexityValidator {
         return normalizeRatio; //Return a ratio and then normalize b by b times ratio. 
     }
     
-    //Rnew is a statistic to valuate how close the predictions are to true values.  
+    //Rnew is a statistic to valuate how close the predictions are to true values. The better prediction means it should return a value close to 1. (negative RNew means very bad prediction.)
     //This function could only be used when comparing the experienment runtime with theoretical time given by specific mathematical expressions with correct parameters such as 0.4*x^2*log(x)+0.9*x. 
     public static double Rnew(double[] a, double[] b) { 
         int length = Math.min(a.length, b.length);
@@ -142,6 +135,7 @@ public class ComplexityValidator {
     
     //For most cases, the log value would be way more useful when comparing. 
     //When input size is getting larger, the log value of the experiment runtime should converge to the log value of theoretical time regardless of parameters. 
+    //LogRnew should be close to 1 if two arrays in terms of N are similar. PS: it could be negative when they are far from each other. 
     public static double LogRnew(double[] a, double[] b, double[] N) { 
         int length = Math.min(a.length, b.length);
         length = Math.min(length, N.length);
@@ -275,17 +269,6 @@ public class ComplexityValidator {
 		return R90(ExperimentTime, TheoreticalTime);
 	}
     
-//    public boolean validateTheta(/*TCConfirmableAlgorithm algorithm,*/ ComplexityExpression cexpr) {
-//        double[] RunningTimes = new double[10];
-//        double[] ExperimentTime = new double[10];
-//        double[] TheoreticalTime = new double[10];
-//        for (int i = 0; i <= 9; i++) {
-//            RunningTimes[i] = Math.pow(10, i+1);
-//            //ExperimentTime[i] = algorithm(RunningTimes[i]);
-//            TheoreticalTime[i] = cexpr.run(RunningTimes[i]);
-//        }
-//		return true;
-//	}
     
     
     //TCReport data class, which required to contain two arrays of double, the first one is the input size, the second one is the report time. 
